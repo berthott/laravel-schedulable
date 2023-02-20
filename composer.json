@@ -10,18 +10,18 @@
   ],
   "autoload" : {
       "psr-4" : {
-          "berthott\\InternalRequest\\": "src"
+          "berthott\\Schedulable\\": "src"
       }
   },
   "autoload-dev": {
       "psr-4": {
-          "berthott\\InternalRequest\\Tests\\": "tests"
+          "berthott\\Schedulable\\Tests\\": "tests"
       }
   },
   "extra" : {
       "laravel" : {
           "providers" : [
-              "berthott\\InternalRequest\\InternalRequestServiceProvider"
+              "berthott\\Schedulable\\SchedulableServiceProvider"
           ]
       }
   },
@@ -29,5 +29,8 @@
     "orchestra/testbench": "^8.0",
     "phpunit/phpunit": "^10.0",
     "doctrine/dbal": "^3.3"
+  },
+  "require": {
+    "berthott/laravel-targetable": "^3.0"
   }
 }
