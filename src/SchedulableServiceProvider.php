@@ -6,6 +6,7 @@ use berthott\Schedulable\Facades\Schedulable;
 use berthott\Schedulable\Helpers\SchedulableLog;
 use berthott\Schedulable\Services\SchedulableService;
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\ServiceProvider;
 
 class SchedulableServiceProvider extends ServiceProvider
@@ -43,6 +44,9 @@ class SchedulableServiceProvider extends ServiceProvider
             'path' => storage_path('logs/schedulable.log'),
             'level' => 'debug',
         ]);
+
+
+        $this->app->make(Kernel::class);
 
         // add scheduled commands
         $this->app->booted(function () {

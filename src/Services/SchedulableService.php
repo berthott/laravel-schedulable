@@ -2,8 +2,12 @@
 
 namespace berthott\Schedulable\Services;
 
+use berthott\Schedulable\Jobs\HandleScheduledTask;
 use berthott\Schedulable\Models\Traits\Schedulable;
+use berthott\Schedulable\Tests\Schedulable\Entity;
 use berthott\Targetable\Services\TargetableService;
+use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Support\Str;
 
 class SchedulableService extends TargetableService
 {
@@ -13,5 +17,28 @@ class SchedulableService extends TargetableService
     public function __construct()
     {
         parent::__construct(Schedulable::class, 'schedulable');
+    }
+
+    public function addSchedules(Schedule $schedule)
+    {
+        foreach($this->getTargetableClasses() as $target) {
+            foreach($this->getTasks($target) as $task) {
+                //$schedule->call(fn() => $target::all()->each(fn($entity) => $entity->$task()))->hourly();
+                $schedule->job(new HandleScheduledTask($target, $task))->hourly();
+            }
+        }
+        $events = $schedule->events();
+        $a = 0;
+    }
+
+    private function getTasks(string $target)
+    {
+        $tasks = [];
+        foreach(get_class_methods($target) as $method) {
+            if (Str::startsWith($method, 'schedule')) {
+                $tasks[] = $method;
+            }
+        }
+        return $tasks;
     }
 }

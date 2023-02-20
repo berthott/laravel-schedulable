@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Entity extends Model
 {
     use Schedulable;
+
+    public function scheduleTest() {
+        TestFacade::test();
+    }
+    public function scheduleTest2() {
+        TestFacade::test();
+    }
 }
