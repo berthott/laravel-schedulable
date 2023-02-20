@@ -2,6 +2,7 @@
 
 namespace berthott\Schedulable\Jobs;
 
+use berthott\Schedulable\Facades\SchedulableLog;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -15,6 +16,7 @@ class HandleScheduledTask implements ShouldQueue
 
     public function handle()
     {
+        SchedulableLog::log("[{$this->target}] running task {$this->task}");
         $task = $this->task;
         $this->target::all()->each(fn($entity) => $entity->$task());
     }

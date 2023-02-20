@@ -1,6 +1,6 @@
 <?php
 
-namespace berthott\SX\Facades;
+namespace berthott\Schedulable\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

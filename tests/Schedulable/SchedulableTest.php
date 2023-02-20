@@ -3,6 +3,7 @@
 namespace berthott\Schedulable\Tests\Schedulable;
 
 use berthott\Schedulable\Facades\Schedulable;
+use berthott\Schedulable\Facades\SchedulableLog as FacadesSchedulableLog;
 use berthott\Schedulable\Jobs\HandleScheduledTask;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Artisan;
@@ -40,6 +41,13 @@ class SchedulableTest extends SchedulableTestCase
             ->getMock()
         );
         Entity::create();
+        $this->travelTo(now()->addHour()->startOfHour());
+        Artisan::call('schedule:run');
+    } 
+
+    public function test_schedule_log(): void
+    {
+        FacadesSchedulableLog::shouldReceive('log')->twice();
         $this->travelTo(now()->addHour()->startOfHour());
         Artisan::call('schedule:run');
     } 
