@@ -24,11 +24,9 @@ class SchedulableService extends TargetableService
         foreach($this->getTargetableClasses() as $target) {
             foreach($this->getTasks($target) as $task) {
                 //$schedule->call(fn() => $target::all()->each(fn($entity) => $entity->$task()))->hourly();
-                $schedule->job(new HandleScheduledTask($target, $task))->hourly();
+                $schedule->job(new HandleScheduledTask($target, $task))->cron(config('schedulable.cron'));
             }
         }
-        $events = $schedule->events();
-        $a = 0;
     }
 
     private function getTasks(string $target)
