@@ -9,6 +9,9 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Register the libraries features with the laravel application.
+ */
 class SchedulableServiceProvider extends ServiceProvider
 {
     /**

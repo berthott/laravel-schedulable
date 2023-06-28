@@ -7,7 +7,8 @@ return [
     | Model Namespace Configuration
     |--------------------------------------------------------------------------
     |
-    | Defines one or multiple model namespaces.
+    | String or array with one ore multiple namespaces that should be monitored 
+    | for the configured trait.
     |
     */
 
