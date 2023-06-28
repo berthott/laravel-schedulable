@@ -4,7 +4,6 @@ namespace berthott\Schedulable\Services;
 
 use berthott\Schedulable\Jobs\HandleScheduledTask;
 use berthott\Schedulable\Models\Traits\Schedulable;
-use berthott\Schedulable\Tests\Schedulable\Entity;
 use berthott\Targetable\Services\TargetableService;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Str;
@@ -23,7 +22,6 @@ class SchedulableService extends TargetableService
     {
         foreach($this->getTargetableClasses() as $target) {
             foreach($this->getTasks($target) as $task) {
-                //$schedule->call(fn() => $target::all()->each(fn($entity) => $entity->$task()))->hourly();
                 $schedule->job(new HandleScheduledTask($target, $task))->cron(config('schedulable.cron'));
             }
         }
